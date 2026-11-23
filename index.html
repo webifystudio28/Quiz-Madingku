@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MADING QUIZ CHALLENGE — Special Teacherday 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --midnight-navy: #061329;
+      --deep-navy: #0B1E3A;
+      --card-bg: rgba(11, 30, 58, 0.72);
+      --card-solid: #0D2446;
+      --electric-blue: #1677D2;
+      --neon-cyan: #55C8FF;
+      --gold: #FBBF24;
+      --white: #FFFFFF;
+      --muted: #94B4D8;
+      --success: #10B981;
+      --danger: #EF4444;
+      --border-cyan: rgba(85, 200, 255, 0.28);
+      --glow-cyan: 0 0 20px rgba(85, 200, 255, 0.35);
+      --glow-gold: 0 0 22px rgba(251, 191, 36, 0.4);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: var(--midnight-navy);
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      line-height: 1.55;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(22, 119, 210, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(85, 200, 255, 0.14) 0%, transparent 45%),
+        linear-gradient(180deg, #061329 0%, #081833 50%, #061329 100%);
+      position: relative;
+    }
+
+    /* Subtle Particle Canvas & Grid Overlay */
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(85, 200, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(85, 200, 255, 0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Layout Container */
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px 16px 48px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Control Bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(11, 30, 58, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-md);
+      margin-bottom: 22px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--electric-blue), var(--neon-cyan));
+      display: grid;
+      place-items: center;
+      color: var(--midnight-navy);
+      font-weight: 900;
+      box-shadow: var(--glow-cyan);
+      flex-shrink: 0;
+    }
+
+    .brand-mini-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-mini-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .brand-mini-sub {
+      font-size: 0.7rem;
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(6, 19, 41, 0.75);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border-cyan);
+      background: rgba(22, 119, 210, 0.16);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(85, 200, 255, 0.22);
+      border-color: var(--neon-cyan);
+      transform: translateY(-1px);
+    }
+
+    /* Screens & Transitions */
+    .screen {
+      display: none;
+      animation: screenEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes screenEnter {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    /* Typography */
+    .font-display {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .tag-edition {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.18), rgba(85, 200, 255, 0.18));
+      border: 1px solid rgba(251, 191, 36, 0.5);
+      color: var(--gold);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 0 18px rgba(251, 191, 36, 0.18);
+    }
+
+    /* Landing Hero */
+    .hero-card {
+      text-align: center;
+      padding: 38px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(85, 200, 255, 0.28), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* CSS Gamepad Logo */
+    .game-logo-wrap {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      border-radius: 26px;
+      background: linear-gradient(145deg, #0F2B54, #07162E);
+      border: 2px solid var(--neon-cyan);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--glow-cyan), inset 0 0 20px rgba(85, 200, 255, 0.25);
+      animation: floatLogo 3.6s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.75rem, 4.6vw, 2.9rem);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      margin: 16px 0 8px;
+      background: linear-gradient(180deg, #FFFFFF 25%, #55C8FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 6px 30px rgba(85, 200, 255, 0.25);
+    }
+
+    .hero-subtitle {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--neon-cyan);
+      margin-bottom: 18px;
+    }
+
+    .hero-desc {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      color: #D2E4F8;
+      font-size: 0.98rem;
+    }
+
+    .organizer-line {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 26px;
+      font-weight: 600;
+    }
+
+    .organizer-line strong {
+      color: var(--white);
+    }
+
+    /* Stats Strip */
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 560px;
+      margin: 0 auto 30px;
+    }
+
+    .metric-box {
+      background: rgba(6, 19, 41, 0.72);
+      border: 1px solid rgba(85, 200, 255, 0.22);
+      border-radius: var(--radius-md);
+      padding: 14px 10px;
+    }
+
+    .metric-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .metric-lbl {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 28px;
+      border-radius: var(--radius-md);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      border: none;
+      transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      min-height: 52px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--electric-blue) 0%, #2496FF 50%, var(--neon-cyan) 100%);
+      color: #041024;
+      box-shadow: 0 8px 25px rgba(22, 119, 210, 0.5), 0 0 18px rgba(85, 200, 255, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 12px 30px rgba(22, 119, 210, 0.65), 0 0 26px rgba(85, 200, 255, 0.7);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #F59E0B, var(--gold));
+      color: #061329;
+      box-shadow: var(--glow-gold);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(251, 191, 36, 0.55);
+    }
+
+    .btn-secondary {
+      background: rgba(11, 30, 58, 0.9);
+      color: var(--neon-cyan);
+      border: 1.5px solid var(--neon-cyan);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(85, 200, 255, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Nickname Screen */
+    .nickname-box {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .input-wrap {
+      margin: 22px 0;
+      text-align: left;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .cyber-input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(6, 19, 41, 0.9);
+      border: 2px solid rgba(85, 200, 255, 0.35);
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cyber-input:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .error-hint {
+      color: #FCA5A5;
+      font-size: 0.82rem;
+      margin-top: 8px;
+      min-height: 20px;
+      font-weight: 600;
+    }
+
+    /* Arena Selection Grid */
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .arena-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .arena-card {
+      background: rgba(6, 19, 41, 0.82);
+      border: 1.5px solid rgba(85, 200, 255, 0.22);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .arena-card.unlocked {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 24px rgba(85, 200, 255, 0.16);
+    }
+
+    .arena-card.unlocked:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(22, 119, 210, 0.35);
+    }
+
+    .arena-card.completed {
+      border-color: rgba(16, 185, 129, 0.65);
+    }
+
+    .arena-card.boss {
+      border-color: rgba(251, 191, 36, 0.45);
+    }
+
+    .arena-card.boss.unlocked {
+      border-color: var(--gold);
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.22);
+    }
+
+    .arena-card.locked {
+      opacity: 0.62;
+    }
+
+    .arena-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .arena-code {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--neon-cyan);
+    }
+
+    .arena-card.boss .arena-code {
+      color: var(--gold);
+    }
+
+    .status-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .chip-unlocked {
+      background: rgba(85, 200, 255, 0.18);
+      color: var(--neon-cyan);
+      border: 1px solid rgba(85, 200, 255, 0.4);
+    }
+
+    .chip-completed {
+      background: rgba(16, 185, 129, 0.18);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+
+    .chip-locked {
+      background: rgba(148, 180, 216, 0.12);
+      color: var(--muted);
+      border: 1px solid rgba(148, 180, 216, 0.25);
+    }
+
+    .arena-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 6px 0;
+    }
+
+    .arena-topics {
+      font-size: 0.86rem;
+      color: #C4D9F2;
+    }
+
+    /* Gameplay HUD */
+    .hud-panel {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .hud-box {
+      background: rgba(6, 19, 41, 0.85);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .hud-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .hud-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-top: 2px;
+    }
+
+    .hud-value.gold { color: var(--gold); }
+    .hud-value.cyan { color: var(--neon-cyan); }
+    .hud-value.danger { color: #FF6B6B; animation: pulseWarn 0.6s infinite alternate; }
+
+    @keyframes pulseWarn {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
+
+    /* Progress Bars */
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(6, 19, 41, 0.9);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(85, 200, 255, 0.2);
+      margin-bottom: 18px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--electric-blue), var(--neon-cyan));
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 12px rgba(85, 200, 255, 0.6);
+    }
+
+    .timer-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(6, 19, 41, 0.95);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .timer-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--neon-cyan));
+      transition: width 0.25s linear, background 0.3s ease;
+    }
+
+    /* Question Card */
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .q-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background: rgba(22, 119, 210, 0.25);
+      border: 1px solid rgba(85, 200, 255, 0.35);
+      color: var(--neon-cyan);
+    }
+
+    .q-difficulty {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .question-text {
+      font-size: clamp(1.08rem, 2.5vw, 1.32rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .options-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 15px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(6, 19, 41, 0.85);
+      border: 1.5px solid rgba(85, 200, 255, 0.26);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+      min-height: 56px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--neon-cyan);
+      background: rgba(22, 119, 210, 0.24);
+      transform: translateX(4px);
+    }
+
+    .option-key {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: rgba(22, 119, 210, 0.28);
+      border: 1px solid rgba(85, 200, 255, 0.4);
+      display: grid;
+      place-items: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--neon-cyan);
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: var(--success);
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.35);
+    }
+
+    .option-btn.correct .option-key {
+      background: var(--success);
+      color: #04130D;
+      border-color: var(--success);
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: var(--danger);
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.3);
+    }
+
+    .option-btn.wrong .option-key {
+      background: var(--danger);
+      color: var(--white);
+      border-color: var(--danger);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* Feedback Box */
+    .feedback-panel {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(6, 19, 41, 0.92);
+      border-left: 4px solid var(--neon-cyan);
+      display: none;
+      animation: screenEnter 0.3s ease forwards;
+    }
+
+    .feedback-panel.show {
+      display: block;
+    }
+
+    .feedback-panel.is-correct {
+      border-left-color: var(--success);
+    }
+
+    .feedback-panel.is-wrong {
+      border-left-color: var(--danger);
+    }
+
+    .feedback-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .feedback-status {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .feedback-points {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .feedback-exp {
+      font-size: 0.92rem;
+      color: #D9E9FA;
+      margin-bottom: 16px;
+    }
+
+    /* Arena Complete & Final Results */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .summary-tile {
+      background: rgba(6, 19, 41, 0.8);
+      border: 1px solid rgba(85, 200, 255, 0.25);
+      border-radius: var(--radius-md);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .summary-tile .val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--neon-cyan);
+    }
+
+    .summary-tile .lbl {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .rank-banner {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(22, 119, 210, 0.25), rgba(251, 191, 36, 0.16));
+      border: 1.5px solid var(--gold);
+      text-align: center;
+      margin: 18px 0;
+      box-shadow: var(--glow-gold);
+    }
+
+    .rank-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      font-weight: 800;
+    }
+
+    .rank-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.3rem, 3.6vw, 1.95rem);
+      font-weight: 900;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+
+    /* Badges Grid */
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin: 18px 0 26px;
+    }
+
+    .badge-item {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(6, 19, 41, 0.85);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-item.locked {
+      opacity: 0.42;
+      border-color: rgba(148, 180, 216, 0.2);
+    }
+
+    .badge-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(85, 200, 255, 0.25));
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .badge-info h4 {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .badge-info p {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    /* Review List */
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .review-card {
+      background: rgba(6, 19, 41, 0.85);
+      border: 1px solid rgba(85, 200, 255, 0.24);
+      border-left: 4px solid var(--success);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+    }
+
+    .review-card.wrong {
+      border-left-color: var(--danger);
+    }
+
+    .review-q {
+      font-weight: 700;
+      margin: 6px 0 10px;
+      font-size: 0.96rem;
+    }
+
+    .review-ans {
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+    }
+
+    .review-exp {
+      font-size: 0.84rem;
+      color: #B9D4F1;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(85, 200, 255, 0.14);
+    }
+
+    /* Leaderboard Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(85, 200, 255, 0.25);
+      margin: 16px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(6, 19, 41, 0.82);
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(85, 200, 255, 0.12);
+    }
+
+    th {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.74rem;
+      color: var(--neon-cyan);
+      letter-spacing: 0.06em;
+      background: rgba(22, 119, 210, 0.18);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .local-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: rgba(22, 119, 210, 0.12);
+      border: 1px solid rgba(85, 200, 255, 0.22);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Modal (How to Play) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 10, 24, 0.82);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      max-width: 600px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--card-solid);
+      border: 1.5px solid var(--neon-cyan);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0 22px;
+    }
+
+    .rules-list li {
+      background: rgba(6, 19, 41, 0.75);
+      border: 1px solid rgba(85, 200, 255, 0.2);
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+    }
+
+    .rules-list strong {
+      color: var(--neon-cyan);
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 28px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 768px) {
+      .arena-grid {
+        grid-template-columns: 1fr;
+      }
+      .hud-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .glass-card {
+        padding: 20px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-metrics {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .metric-val {
+        font-size: 1.1rem;
+      }
+      .btn {
+        width: 100%;
+      }
+      .topbar {
+        padding: 10px 12px;
+      }
+      .brand-mini-sub {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div class="grid-overlay"></div>
+
+  <div class="app-shell">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="brand-mini" id="nav-home-brand" title="Kembali ke Beranda">
+        <div class="brand-badge" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="12" x2="10" y2="12"></line>
+            <line x1="8" y1="10" x2="8" y2="14"></line>
+            <line x1="15" y1="13" x2="15.01" y2="13"></line>
+            <line x1="18" y1="11" x2="18.01" y2="11"></line>
+            <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+          </svg>
+        </div>
+        <div class="brand-mini-text">
+          <span class="brand-mini-title">MADING QUIZ</span>
+          <span class="brand-mini-sub">SPECIAL TEACHERDAY 2026</span>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="pill-stat" title="Rekor Skor Tertinggi Pribadi">
+          <span>★ BEST:</span>
+          <span id="top-personal-best">0</span>
+        </div>
+        <button type="button" class="icon-btn" id="btn-open-leaderboard" aria-label="Buka Papan Peringkat Lokal">
+          🏆 <span class="hide-xs">RANK</span>
+        </button>
+        <button type="button" class="icon-btn" id="btn-sound-toggle" aria-label="Pengaturan Suara">
+          🔊 ON
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- SCREEN 1: LANDING / OPENING -->
+      <section id="screen-home" class="screen active" aria-labelledby="main-game-title">
+        <div class="glass-card hero-card">
+          <div class="game-logo-wrap" aria-hidden="true">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#55C8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="12" x2="10" y2="12"></line>
+              <line x1="8" y1="10" x2="8" y2="14"></line>
+              <circle cx="15.5" cy="13" r="1" fill="#FBBF24" stroke="none"></circle>
+              <circle cx="18" cy="10.5" r="1" fill="#55C8FF" stroke="none"></circle>
+              <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+            </svg>
+          </div>
+
+          <div class="tag-edition">SPECIAL TEACHERDAY 2026</div>
+
+          <h1 id="main-game-title" class="hero-title">MADING QUIZ CHALLENGE</h1>
+          <p class="hero-subtitle">TEST YOUR KNOWLEDGE. PROVE YOUR SKILL.</p>
+
+          <p class="hero-desc">
+            Tantangan kuis edukasi interaktif untuk menguji wawasanmu seputar sejarah Hari Guru Nasional, tokoh pahlawan pendidikan Indonesia, dan makna luhur pengabdian guru berdasarkan materi <strong>Mading Kelasku edisi Special Teacherday 2026</strong>.
+          </p>
+
+          <p class="organizer-line">
+            Diselenggarakan oleh <strong>Kelas VI — SD Islam Al Falah Jambi</strong>
+          </p>
+
+          <div class="hero-metrics" aria-label="Informasi Tantangan">
+            <div class="metric-box">
+              <div class="metric-val">4</div>
+              <div class="metric-lbl">Arena Tantangan</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">20</div>
+              <div class="metric-lbl">Total Soal</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">20s</div>
+              <div class="metric-lbl">Waktu / Soal</div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" id="btn-start-challenge">
+              ▶ START CHALLENGE
+            </button>
+            <button type="button" class="btn btn-secondary" id="btn-how-to-play">
+              📘 HOW TO PLAY
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: PLAYER NICKNAME -->
+      <section id="screen-nickname" class="screen" aria-labelledby="nickname-heading">
+        <div class="glass-card nickname-box">
+          <div class="tag-edition">PLAYER REGISTRATION</div>
+          <h2 id="nickname-heading" class="font-display" style="font-size: 1.55rem; margin: 14px 0 8px;">IDENTITAS PENANTANG</h2>
+          <p style="color: var(--muted); font-size: 0.92rem;">
+            Masukkan nama atau nickname kamu sebelum memasuki arena pertandingan.
+          </p>
+
+          <form id="nickname-form" novalidate>
+            <div class="input-wrap">
+              <label for="player-nickname-input" class="input-label">Nama / Nickname Pemain</label>
+              <input
+                type="text"
+                id="player-nickname-input"
+                class="cyber-input"
+                placeholder="Contoh: Rafa_AlFalah"
+                maxlength="22"
+                autocomplete="off"
+                required
+              />
+              <div id="nickname-error" class="error-hint" role="alert"></div>
+            </div>
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary" id="btn-back-to-landing">
+                ← KEMBALI
+              </button>
+              <button type="submit" class="btn btn-primary" id="btn-confirm-nickname">
+                LANJUT KE ARENA →
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: ARENA SELECTION -->
+      <section id="screen-arenas" class="screen" aria-labelledby="arenas-heading">
+        <div class="glass-card">
+          <div class="section-header">
+            <div>
+              <div class="tag-edition" style="margin-bottom: 8px;">MISSION CONTROL</div>
+              <h2 id="arenas-heading" class="section-title">PILIH ARENA PERTANDINGAN</h2>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.78rem; color: var(--muted);">PEMAIN AKTIF</div>
+              <div id="hud-player-name" class="font-display" style="color: var(--neon-cyan); font-weight: 800;">PLAYER</div>
+              <div style="font-size: 0.82rem; color: var(--gold); font-weight: 700;">Total Skor: <span id="arena-total-score">0</span></div>
+            </div>
+          </div>
+
+          <p style="color: #C7DDF6; font-size: 0.9rem; margin-bottom: 20px;">
+            Selesaikan setiap arena secara berurutan untuk membuka arena berikutnya hingga menaklukkan <strong>Final Boss</strong>.
+          </p>
+
+          <div id="arena-cards-container" class="arena-grid"></div>
+        </div>
+      </section>
+
+      <!-- SCREEN 4: QUIZ GAMEPLAY -->
+      <section id="screen-quiz" class="screen" aria-live="polite">
+        <div class="hud-panel">
+          <div class="hud-box">
+            <div class="hud-label">ARENA & SOAL</div>
+            <div class="hud-value cyan" id="hud-progress">A1 • 1/5</div>
+          </div>
+          <div class="hud-box">
+            <div class="hud-label">WAKTU TERSISA</div>
+            <div class="hud-value gold" id="hud-timer">20s</div>
+          </div>
+          <div class="hud-box">
+            <div class="hud-label">SKOR SAAT INI</div>
+            <div class="hud-value" id="hud-score">0</div>
+          </div>
+          <div class="hud-box">
+            <div class="hud-label">COMBO STREAK</div>
+            <div class="hud-value cyan" id="hud-combo">0x</div>
+          </div>
+        </div>
+
+        <div class="progress-track" aria-label="Progres Pertanyaan Arena">
+          <div class="progress-fill" id="arena-progress-bar"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="timer-track" aria-label="Indikator Waktu">
+            <div class="timer-fill" id="question-timer-bar"></div>
+          </div>
+
+          <div class="q-meta">
+            <span class="q-badge" id="q-arena-badge">ARENA 01 — HISTORY ARENA</span>
+            <span class="q-difficulty" id="q-difficulty-badge">TINGKAT: DASAR</span>
+          </div>
+
+          <h2 class="question-text" id="question-text">Memuat pertanyaan...</h2>
+
+          <div class="options-list" id="options-container"></div>
+
+          <div class="feedback-panel" id="feedback-panel">
+            <div class="feedback-header">
+              <span class="feedback-status" id="feedback-status">JAWABAN BENAR!</span>
+              <span class="feedback-points" id="feedback-points">+100 POIN</span>
+            </div>
+            <p class="feedback-exp" id="feedback-explanation"></p>
+            <button type="button" class="btn btn-primary" id="btn-next-question" style="width: 100%;">
+              PERTANYAAN BERIKUTNYA →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 5: ARENA COMPLETION -->
+      <section id="screen-arena-complete" class="screen" aria-labelledby="arena-complete-title">
+        <div class="glass-card" style="text-align: center;">
+          <div class="tag-edition" id="arena-complete-tag">STAGE CLEARED</div>
+          <h2 id="arena-complete-title" class="font-display" style="font-size: clamp(1.4rem, 3.5vw, 2rem); margin: 14px 0 6px;">
+            ARENA SELESAI!
+          </h2>
+          <p id="arena-complete-subtitle" style="color: #C7DDF6; font-size: 0.95rem;">
+            Kerja bagus! Kamu telah menyelesaikan tantangan pada arena ini.
+          </p>
+
+          <div class="summary-grid">
+            <div class="summary-tile">
+              <div class="val" id="ac-correct">0/5</div>
+              <div class="lbl">Jawaban Benar</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="ac-arena-score" style="color: var(--gold);">0</div>
+              <div class="lbl">Poin Arena</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="ac-accuracy">0%</div>
+              <div class="lbl">Akurasi Arena</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="ac-total-score">0</div>
+              <div class="lbl">Total Skor</div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" id="btn-continue-next-arena">
+              LANJUT KE ARENA BERIKUTNYA →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 6: FINAL RESULT -->
+      <section id="screen-final" class="screen" aria-labelledby="final-heading">
+        <div class="glass-card">
+          <div style="text-align: center;">
+            <div class="tag-edition">CHALLENGE COMPLETED</div>
+            <h2 id="final-heading" class="font-display" style="font-size: clamp(1.5rem, 3.8vw, 2.2rem); margin: 14px 0 4px;">
+              HASIL AKHIR PERTANDINGAN
+            </h2>
+            <p style="color: var(--neon-cyan); font-weight: 700; font-size: 1rem;">
+              Pemain: <span id="final-player-name" style="color: var(--white);">PLAYER</span>
+            </p>
+          </div>
+
+          <div class="rank-banner">
+            <div class="rank-label">PREDIKAT PENCAPAIAN</div>
+            <div class="rank-title" id="final-rank-title">MASTER OF KNOWLEDGE</div>
+            <div id="new-record-badge" style="display: none; margin-top: 6px; font-size: 0.8rem; font-weight: 800; color: #6EE7B7;">
+              ★ REKOR SKOR TERTINGGI BARU! ★
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-tile">
+              <div class="val" id="final-total-score" style="color: var(--gold);">0</div>
+              <div class="lbl">Total Skor</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="final-correct-wrong">0 / 0</div>
+              <div class="lbl">Benar / Salah</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="final-accuracy">0%</div>
+              <div class="lbl">Akurasi</div>
+            </div>
+            <div class="summary-tile">
+              <div class="val" id="final-time">00:00</div>
+              <div class="lbl">Waktu Bermain</div>
+            </div>
+          </div>
+
+          <h3 class="font-display" style="font-size: 1rem; color: var(--neon-cyan); margin-top: 10px;">
+            ACHIEVEMENT BADGES YANG DIPEROLEH
+          </h3>
+          <div class="badges-grid" id="final-badges-grid"></div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" id="btn-review-answers">
+              📋 REVIEW ANSWERS
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-play-again">
+              ↻ PLAY AGAIN
+            </button>
+            <button type="button" class="btn btn-gold" id="btn-final-home">
+              ⌂ BACK TO HOME
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 7: REVIEW ALL ANSWERS -->
+      <section id="screen-review" class="screen" aria-labelledby="review-heading">
+        <div class="glass-card">
+          <div class="section-header">
+            <div>
+              <div class="tag-edition" style="margin-bottom: 8px;">KNOWLEDGE ARCHIVE</div>
+              <h2 id="review-heading" class="section-title">PEMBAHASAN SELURUH JAWABAN</h2>
+            </div>
+            <button type="button" class="btn btn-secondary" id="btn-back-to-final" style="padding: 10px 18px; min-height: 42px;">
+              ← KEMBALI KE HASIL
+            </button>
+          </div>
+
+          <div id="review-container" class="review-list"></div>
+        </div>
+      </section>
+
+      <!-- SCREEN 8: LOCAL LEADERBOARD -->
+      <section id="screen-leaderboard" class="screen" aria-labelledby="lb-heading">
+        <div class="glass-card">
+          <div class="section-header">
+            <div>
+              <div class="tag-edition" style="margin-bottom: 8px;">HALL OF FAME</div>
+              <h2 id="lb-heading" class="section-title">TOP 10 LOCAL LEADERBOARD</h2>
+            </div>
+            <button type="button" class="btn btn-secondary" id="btn-close-leaderboard" style="padding: 10px 18px; min-height: 42px;">
+              ← TUTUP
+            </button>
+          </div>
+
+          <div class="local-note">
+            <strong>Catatan Penyimpanan:</strong> Papan peringkat ini tersimpan secara lokal pada browser dan perangkat yang kamu gunakan saat ini (maksimal 10 hasil terbaik), bukan leaderboard online global.
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>NAMA PEMAIN</th>
+                  <th>SKOR</th>
+                  <th>AKURASI</th>
+                  <th>TANGGAL</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      MADING QUIZ CHALLENGE • Special Teacherday 2026 • Kelas VI — SD Islam Al Falah Jambi
+    </footer>
+  </div>
+
+  <!-- MODAL: HOW TO PLAY -->
+  <div id="modal-howtoplay" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-htp-title">
+    <div class="modal-card">
+      <div class="tag-edition" style="margin-bottom: 10px;">GAME GUIDE</div>
+      <h2 id="modal-htp-title" class="font-display" style="font-size: 1.35rem; margin-bottom: 6px;">CARA BERMAIN & ATURAN</h2>
+      <p style="font-size: 0.88rem; color: var(--muted);">
+        Pahami mekanisme permainan agar kamu meraih predikat <strong>MASTER OF KNOWLEDGE</strong>!
+      </p>
+
+      <ul class="rules-list">
+        <li><strong>1. Empat Arena Berurutan:</strong> Selesaikan <em>History Arena</em>, <em>Figure Arena</em>, <em>Knowledge Arena</em>, hingga <em>Final Boss</em> (masing-masing 5 soal, total 20 soal).</li>
+        <li><strong>2. Batas Waktu 20 Detik:</strong> Setiap pertanyaan memiliki timer 20 detik. Jika waktu habis, jawaban otomatis dianggap salah.</li>
+        <li><strong>3. Sistem Poin & Bonus:</strong> Jawaban benar bernilai <strong>100 poin</strong>, ditambah <strong>Combo Streak Bonus</strong> (+25 poin per streak berturut-turut) dan <strong>Speed Bonus</strong> (hingga +50 poin jika menjawab cepat).</li>
+        <li><strong>4. Pembahasan Edukatif:</strong> Setelah memilih jawaban, kamu akan melihat kunci jawaban serta penjelasan lengkap berdasarkan materi Mading Kelasku.</li>
+        <li><strong>5. Predikat Akhir:</strong> 90–100% (<em>Master of Knowledge</em>), 75–89% (<em>Knowledge Expert</em>), 60–74% (<em>Rising Thinker</em>), di bawah 60% (<em>Keep Learning</em>).</li>
+      </ul>
+
+      <button type="button" class="btn btn-primary" id="btn-close-howtoplay" style="width: 100%;">
+        SAYA MENGERTI
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* =========================================================================
+         1. QUESTION BANK (20 VERIFIED QUESTIONS FROM MADING KELASKU FACTS)
+         ========================================================================= */
+      const ARENA_CONFIG = [
+        {
+          id: 1,
+          code: 'ARENA 01',
+          name: 'HISTORY ARENA',
+          topics: 'Sejarah Hari Guru Nasional, PGHB, PGI, PGRI, dan Kongres Guru Indonesia.',
+          isBoss: false
+        },
+        {
+          id: 2,
+          code: 'ARENA 02',
+          name: 'FIGURE ARENA',
+          topics: 'Biografi, karya, dan perjuangan Ki Hajar Dewantara, R.A. Kartini, dan Raden Dewi Sartika.',
+          isBoss: false
+        },
+        {
+          id: 3,
+          code: 'ARENA 03',
+          name: 'KNOWLEDGE ARENA',
+          topics: 'Makna Hari Guru, peran mulia guru, cara menghormati guru, dan Trilogi Pendidikan.',
+          isBoss: false
+        },
+        {
+          id: 4,
+          code: 'ARENA 04',
+          name: 'FINAL BOSS',
+          topics: 'Tantangan pamungkas gabungan seluruh materi sejarah, tokoh, dan nilai pendidikan.',
+          isBoss: true
+        }
+      ];
+
+      const QUESTION_BANK = [
+        // --- ARENA 1: HISTORY ARENA (5 SOAL) ---
+        {
+          id: 'H1',
+          arena: 1,
+          difficulty: 'Dasar',
+          question: 'Pada tahun berapakah organisasi perjuangan guru bernama Persatuan Guru Hindia Belanda (PGHB) pertama kali didirikan?',
+          options: ['1912', '1922', '1932', '1945'],
+          correctIndex: 0,
+          explanation: 'Persatuan Guru Hindia Belanda (PGHB) berdiri pada tahun 1912 sebagai wadah perjuangan para guru pribumi.'
+        },
+        {
+          id: 'H2',
+          arena: 1,
+          difficulty: 'Menengah',
+          question: 'Pada tahun 1932, nama organisasi Persatuan Guru Hindia Belanda (PGHB) resmi diubah menjadi...',
+          options: [
+            'Persatuan Guru Indonesia (PGI)',
+            'Persatuan Guru Republik Indonesia (PGRI)',
+            'Persatuan Guru Nusantara (PGN)',
+            'Ikatan Guru Tanah Air (IGTA)'
+          ],
+          correctIndex: 0,
+          explanation: 'Pada tahun 1932, PGHB mengubah namanya menjadi Persatuan Guru Indonesia (PGI) sebagai wujud semangat kebangsaan.'
+        },
+        {
+          id: 'H3',
+          arena: 1,
+          difficulty: 'Menengah',
+          question: 'Di kota manakah Kongres Guru Indonesia pertama berlangsung pada tanggal 24–25 November 1945?',
+          options: ['Surakarta', 'Yogyakarta', 'Bandung', 'Jepara'],
+          correctIndex: 0,
+          explanation: 'Kongres Guru Indonesia pertama diselenggarakan di Surakarta pada tanggal 24–25 November 1945.'
+        },
+        {
+          id: 'H4',
+          arena: 1,
+          difficulty: 'Dasar',
+          question: 'Persatuan Guru Republik Indonesia (PGRI) resmi lahir pada tanggal...',
+          options: [
+            '25 November 1945',
+            '24 November 1945',
+            '2 Mei 1922',
+            '21 April 1932'
+          ],
+          correctIndex: 0,
+          explanation: 'PGRI lahir pada hari kedua Kongres Guru Indonesia pertama, yaitu tanggal 25 November 1945.'
+        },
+        {
+          id: 'H5',
+          arena: 1,
+          difficulty: 'Menengah',
+          question: 'Hari Guru Nasional ditetapkan oleh pemerintah melalui peraturan resmi berupa...',
+          options: [
+            'Keputusan Presiden Nomor 78 Tahun 1994',
+            'Keputusan Presiden Nomor 45 Tahun 1994',
+            'Keputusan Presiden Nomor 78 Tahun 1945',
+            'Keputusan Presiden Nomor 25 Tahun 1994'
+          ],
+          correctIndex: 0,
+          explanation: 'Hari Guru Nasional ditetapkan melalui Keputusan Presiden Nomor 78 Tahun 1994 untuk menghormati jasa para guru.'
+        },
+
+        // --- ARENA 2: FIGURE ARENA (5 SOAL) ---
+        {
+          id: 'F1',
+          arena: 2,
+          difficulty: 'Dasar',
+          question: 'Siapakah nama asli dari tokoh pendidikan nasional Ki Hajar Dewantara?',
+          options: [
+            'Raden Mas Soewardi Soerjaningrat',
+            'Raden Mas Suryopranoto',
+            'Raden Ajeng Soerjaningrat',
+            'Raden Mas Cokroaminoto'
+          ],
+          correctIndex: 0,
+          explanation: 'Nama asli Ki Hajar Dewantara adalah Raden Mas Soewardi Soerjaningrat, yang lahir di Yogyakarta pada 2 Mei 1889.'
+        },
+        {
+          id: 'F2',
+          arena: 2,
+          difficulty: 'Menengah',
+          question: 'Perguruan Taman Siswa didirikan oleh Ki Hajar Dewantara pada tahun...',
+          options: ['1922', '1904', '1912', '1932'],
+          correctIndex: 0,
+          explanation: 'Ki Hajar Dewantara mendirikan Perguruan Taman Siswa pada tahun 1922 untuk memberikan kesempatan pendidikan bagi rakyat pribumi.'
+        },
+        {
+          id: 'F3',
+          arena: 2,
+          difficulty: 'Dasar',
+          question: 'R.A. Kartini lahir di kota Jepara pada tanggal...',
+          options: [
+            '21 April 1879',
+            '2 Mei 1889',
+            '4 Desember 1884',
+            '25 November 1879'
+          ],
+          correctIndex: 0,
+          explanation: 'R.A. Kartini lahir di Jepara pada 21 April 1879 dan dikenal gigih memperjuangkan kesempatan pendidikan bagi perempuan.'
+        },
+        {
+          id: 'F4',
+          arena: 2,
+          difficulty: 'Dasar',
+          question: 'Kumpulan surat-surat pemikiran R.A. Kartini dibukukan dan dikenal dengan judul...',
+          options: [
+            'Habis Gelap Terbitlah Terang',
+            'Sakola Istri Nusantara',
+            'Taman Siswa Merdeka',
+            'Cahaya Pendidikan Bangsa'
+          ],
+          correctIndex: 0,
+          explanation: 'Kumpulan surat R.A. Kartini dikenal dengan judul "Habis Gelap Terbitlah Terang" yang menginspirasi kemajuan perempuan.'
+        },
+        {
+          id: 'F5',
+          arena: 2,
+          difficulty: 'Menengah',
+          question: 'Sekolah khusus perempuan yang didirikan oleh Raden Dewi Sartika pada tahun 1904 bernama...',
+          options: [
+            'Sakola Istri',
+            'Perguruan Taman Siswa',
+            'Sekolah Kartini',
+            'Sakola Rakyat'
+          ],
+          correctIndex: 0,
+          explanation: 'Raden Dewi Sartika mendirikan Sakola Istri pada tahun 1904 sebagai wujud perjuangan pendidikan kaum perempuan.'
+        },
+
+        // --- ARENA 3: KNOWLEDGE ARENA (5 SOAL) ---
+        {
+          id: 'K1',
+          arena: 3,
+          difficulty: 'Dasar',
+          question: 'Apa arti dari semboyan pendidikan "Ing Ngarso Sung Tulodo"?',
+          options: [
+            'Di depan memberi teladan',
+            'Di tengah membangun semangat',
+            'Di belakang memberikan dorongan',
+            'Di sekolah menuntut ilmu'
+          ],
+          correctIndex: 0,
+          explanation: 'Ing Ngarso Sung Tulodo berarti seorang pendidik ketika berada di depan harus mampu memberikan contoh atau teladan yang baik.'
+        },
+        {
+          id: 'K2',
+          arena: 3,
+          difficulty: 'Menengah',
+          question: 'Semboyan dalam Trilogi Pendidikan Ki Hajar Dewantara yang bermakna "di tengah membangun semangat" adalah...',
+          options: [
+            'Ing Madyo Mangun Karso',
+            'Ing Ngarso Sung Tulodo',
+            'Tut Wuri Handayani',
+            'Bhinneka Tunggal Ika'
+          ],
+          correctIndex: 0,
+          explanation: 'Ing Madyo Mangun Karso berarti ketika berada di tengah-tengah murid, guru membangkitkan semangat dan kemauan belajar.'
+        },
+        {
+          id: 'K3',
+          arena: 3,
+          difficulty: 'Dasar',
+          question: 'Apa makna dari semboyan "Tut Wuri Handayani"?',
+          options: [
+            'Di belakang memberikan dorongan',
+            'Di depan memberi teladan',
+            'Di tengah membangun semangat',
+            'Di samping mendampingi siswa'
+          ],
+          correctIndex: 0,
+          explanation: 'Tut Wuri Handayani memiliki arti di belakang memberikan dorongan moral dan semangat kemandirian kepada peserta didik.'
+        },
+        {
+          id: 'K4',
+          arena: 3,
+          difficulty: 'Dasar',
+          question: 'Dalam makna Hari Guru, manakah pernyataan berikut yang paling tepat menggambarkan peran mulia seorang guru?',
+          options: [
+            'Guru sebagai penerang ilmu, orang tua kedua di sekolah, dan pembimbing masa depan',
+            'Guru hanya bertugas memberikan nilai ujian di akhir semester',
+            'Guru hanya mengajar di dalam kelas tanpa membimbing sikap siswa',
+            'Guru menggantikan seluruh tugas orang tua di rumah'
+          ],
+          correctIndex: 0,
+          explanation: 'Hari Guru memaknai guru sebagai penerang ilmu, orang tua kedua di sekolah, serta pembimbing masa depan generasi bangsa.'
+        },
+        {
+          id: 'K5',
+          arena: 3,
+          difficulty: 'Dasar',
+          question: 'Manakah perilaku di bawah ini yang merupakan cara menghormati guru di sekolah?',
+          options: [
+            'Bersikap sopan, disiplin, bertanggung jawab, dan mendengarkan penjelasan guru',
+            'Berbicara sendiri dengan teman ketika guru sedang menerangkan pelajaran',
+            'Menunda-nunda tugas sekolah tanpa alasan yang jelas',
+            'Mengabaikan nasihat guru saat diingatkan tentang kedisiplinan'
+          ],
+          correctIndex: 0,
+          explanation: 'Menghormati guru diwujudkan melalui sikap sopan santun, disiplin, penuh tanggung jawab, dan sungguh-sungguh mendengarkan penjelasan.'
+        },
+
+        // --- ARENA 4: FINAL BOSS (5 SOAL CAMPURAN) ---
+        {
+          id: 'B1',
+          arena: 4,
+          difficulty: 'Final Boss',
+          question: 'Raden Dewi Sartika lahir di Bandung pada 4 Desember 1884 dan ditetapkan pemerintah sebagai Pahlawan Nasional pada tahun...',
+          options: ['1966', '1945', '1994', '1922'],
+          correctIndex: 0,
+          explanation: 'Atas jasa-jasanya mendirikan Sakola Istri (1904) dan memajukan pendidikan, Raden Dewi Sartika ditetapkan sebagai Pahlawan Nasional pada tahun 1966.'
+        },
+        {
+          id: 'B2',
+          arena: 4,
+          difficulty: 'Final Boss',
+          question: 'Mengapa tanggal 2 Mei diperingati bangsa Indonesia sebagai Hari Pendidikan Nasional?',
+          options: [
+            'Karena merupakan hari kelahiran Bapak Pendidikan Nasional, Ki Hajar Dewantara',
+            'Karena merupakan tanggal berdirinya Persatuan Guru Republik Indonesia (PGRI)',
+            'Karena merupakan tanggal terbitnya Keputusan Presiden Nomor 78 Tahun 1994',
+            'Karena merupakan hari kelahiran tokoh pejuang pendidikan R.A. Kartini'
+          ],
+          correctIndex: 0,
+          explanation: 'Ki Hajar Dewantara lahir di Yogyakarta pada 2 Mei 1889. Beliau dijuluki Bapak Pendidikan Nasional dan hari lahirnya diperingati sebagai Hari Pendidikan Nasional.'
+        },
+        {
+          id: 'B3',
+          arena: 4,
+          difficulty: 'Final Boss',
+          question: 'Urutan perubahan nama organisasi guru hingga lahirnya PGRI berdasarkan sejarah yang benar adalah...',
+          options: [
+            'PGHB (1912) → PGI (1932) → PGRI (25 November 1945)',
+            'PGI (1912) → PGHB (1932) → PGRI (24 November 1945)',
+            'PGRI (1912) → PGHB (1932) → PGI (25 November 1945)',
+            'PGHB (1922) → PGI (1932) → PGRI (25 November 1994)'
+          ],
+          correctIndex: 0,
+          explanation: 'Organisasi guru berawal dari PGHB tahun 1912, berubah nama menjadi PGI tahun 1932, dan bersatu menjadi PGRI pada 25 November 1945 di Surakarta.'
+        },
+        {
+          id: 'B4',
+          arena: 4,
+          difficulty: 'Final Boss',
+          question: 'Tokoh kelahiran Bandung 4 Desember 1884 dan tokoh kelahiran Jepara 21 April 1879 memiliki kesamaan perjuangan utama, yaitu...',
+          options: [
+            'Memperjuangkan hak dan kesempatan pendidikan bagi kaum perempuan',
+            'Mendirikan Perguruan Taman Siswa di kota Yogyakarta',
+            'Memimpin Kongres Guru Indonesia pertama di kota Surakarta',
+            'Mencetuskan semboyan Trilogi Pendidikan Tut Wuri Handayani'
+          ],
+          correctIndex: 0,
+          explanation: 'Raden Dewi Sartika (Bandung, 4 Desember 1884) dan R.A. Kartini (Jepara, 21 April 1879) sama-sama berjuang membuka akses pendidikan bagi perempuan.'
+        },
+        {
+          id: 'B5',
+          arena: 4,
+          difficulty: 'Final Boss',
+          question: 'Saat seorang guru memberi contoh datang tepat waktu, menyemangati siswa berdiskusi, lalu mendorong siswa percaya diri tampil ke depan, ia telah mengamalkan...',
+          options: [
+            'Trilogi Pendidikan: Ing Ngarso Sung Tulodo, Ing Madyo Mangun Karso, Tut Wuri Handayani',
+            'Keputusan Kongres Guru Indonesia Pertama di Surakarta tahun 1945',
+            'Isi buku kumpulan surat Habis Gelap Terbitlah Terang karya R.A. Kartini',
+            'Peraturan pendirian Sakola Istri di Bandung pada tahun 1904'
+          ],
+          correctIndex: 0,
+          explanation: 'Ketiga sikap tersebut mencerminkan Trilogi Pendidikan Ki Hajar Dewantara: memberi teladan di depan, membangun semangat di tengah, dan mendorong dari belakang.'
+        }
+      ];
+
+      /* =========================================================================
+         2. STORAGE SERVICE WITH IN-MEMORY FALLBACK
+         ========================================================================= */
+      const STORAGE_KEYS = {
+        LEADERBOARD: 'mqc_teacherday2026_leaderboard_v1',
+        PERSONAL_BEST: 'mqc_teacherday2026_personal_best_v1'
+      };
+
+      const memoryFallbackStorage = {
+        [STORAGE_KEYS.LEADERBOARD]: null,
+        [STORAGE_KEYS.PERSONAL_BEST]: '0'
+      };
+
+      function safeGetStorage(key) {
+        try {
+          return window.localStorage.getItem(key);
+        } catch (err) {
+          return memoryFallbackStorage[key] || null;
+        }
+      }
+
+      function safeSetStorage(key, value) {
+        try {
+          window.localStorage.setItem(key, value);
+        } catch (err) {
+          memoryFallbackStorage[key] = value;
+        }
+      }
+
+      function getPersonalBest() {
+        const raw = safeGetStorage(STORAGE_KEYS.PERSONAL_BEST);
+        const parsed = parseInt(raw, 10);
+        return Number.isNaN(parsed) ? 0 : parsed;
+      }
+
+      function savePersonalBest(score) {
+        const currentBest = getPersonalBest();
+        if (score > currentBest) {
+          safeSetStorage(STORAGE_KEYS.PERSONAL_BEST, String(score));
+          return true;
+        }
+        return false;
+      }
+
+      function getLeaderboard() {
+        try {
+          const raw = safeGetStorage(STORAGE_KEYS.LEADERBOARD);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveToLeaderboard(entry) {
+        const list = getLeaderboard();
+        list.push(entry);
+        list.sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return b.accuracy - a.accuracy;
+        });
+        const topTen = list.slice(0, 10);
+        safeSetStorage(STORAGE_KEYS.LEADERBOARD, JSON.stringify(topTen));
+        return topTen;
+      }
+
+      /* =========================================================================
+         3. WEB AUDIO SYNTHESIZER (SOUND EFFECTS WITHOUT EXTERNAL FILES)
+         ========================================================================= */
+      class SoundEngine {
+        constructor() {
+          this.enabled = true;
+          this.ctx = null;
+        }
+
+        initContext() {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              this.ctx = new AudioCtx();
+            }
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        }
+
+        toggle() {
+          this.enabled = !this.enabled;
+          return this.enabled;
+        }
+
+        playTone(freq, type, duration, delay = 0, volume = 0.12) {
+          if (!this.enabled) return;
+          try {
+            this.initContext();
+            if (!this.ctx) return;
+            const now = this.ctx.currentTime + delay;
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(volume, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + duration);
+          } catch (e) {
+            // Ignore audio errors on restricted devices
+          }
+        }
+
+        click() {
+          this.playTone(620, 'sine', 0.08, 0, 0.08);
+        }
+
+        correct() {
+          this.playTone(523.25, 'triangle', 0.14, 0, 0.14);
+          this.playTone(659.25, 'triangle', 0.14, 0.09, 0.14);
+          this.playTone(783.99, 'triangle', 0.24, 0.18, 0.16);
+        }
+
+        wrong() {
+          this.playTone(240, 'sawtooth', 0.18, 0, 0.1);
+          this.playTone(185, 'sawtooth', 0.26, 0.14, 0.1);
+        }
+
+        arenaClear() {
+          this.playTone(440, 'triangle', 0.15, 0, 0.13);
+          this.playTone(554.37, 'triangle', 0.15, 0.1, 0.13);
+          this.playTone(659.25, 'triangle', 0.15, 0.2, 0.13);
+          this.playTone(880, 'triangle', 0.35, 0.3, 0.16);
+        }
+
+        tickWarn() {
+          this.playTone(880, 'sine', 0.05, 0, 0.05);
+        }
+      }
+
+      const sound = new SoundEngine();
+
+      /* =========================================================================
+         4. GAME STATE & CORE LOGIC
+         ========================================================================= */
+      const QUESTION_TIME_LIMIT = 20;
+
+      const state = {
+        nickname: '',
+        unlockedArena: 1,
+        completedArenas: [],
+        currentArenaId: 1,
+        arenaQuestions: [],
+        currentQuestionIdx: 0,
+        timerInterval: null,
+        timeLeft: QUESTION_TIME_LIMIT,
+        questionAnswered: false,
+        totalScore: 0,
+        comboStreak: 0,
+        maxComboStreak: 0,
+        totalCorrect: 0,
+        totalWrong: 0,
+        totalSpeedBonus: 0,
+        arenaScore: 0,
+        arenaCorrect: 0,
+        arenaResults: {},
+        playStartTime: 0,
+        totalPlaySeconds: 0,
+        answerHistory: [],
+        previousScreenBeforeLeaderboard: 'screen-home'
+      };
+
+      function resetFullGameState() {
+        stopQuestionTimer();
+        state.unlockedArena = 1;
+        state.completedArenas = [];
+        state.currentArenaId = 1;
+        state.arenaQuestions = [];
+        state.currentQuestionIdx = 0;
+        state.timeLeft = QUESTION_TIME_LIMIT;
+        state.questionAnswered = false;
+        state.totalScore = 0;
+        state.comboStreak = 0;
+        state.maxComboStreak = 0;
+        state.totalCorrect = 0;
+        state.totalWrong = 0;
+        state.totalSpeedBonus = 0;
+        state.arenaScore = 0;
+        state.arenaCorrect = 0;
+        state.arenaResults = {};
+        state.playStartTime = Date.now();
+        state.totalPlaySeconds = 0;
+        state.answerHistory = [];
+      }
+
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = copy[i];
+          copy[i] = copy[j];
+          copy[j] = temp;
+        }
+        return copy;
+      }
+
+      function prepareShuffledArenaQuestions(arenaId) {
+        const rawQuestions = QUESTION_BANK.filter(q => q.arena === arenaId);
+        const shuffledQuestions = shuffleArray(rawQuestions);
+
+        return shuffledQuestions.map(q => {
+          const optionObjects = q.options.map((optText, idx) => ({
+            text: optText,
+            isCorrect: idx === q.correctIndex
+          }));
+          const shuffledOptions = shuffleArray(optionObjects);
+          const newCorrectIndex = shuffledOptions.findIndex(o => o.isCorrect);
+
+          return {
+            id: q.id,
+            arena: q.arena,
+            difficulty: q.difficulty,
+            question: q.question,
+            options: shuffledOptions.map(o => o.text),
+            correctIndex: newCorrectIndex,
+            explanation: q.explanation
+          };
+        });
+      }
+
+      function stopQuestionTimer() {
+        if (state.timerInterval !== null) {
+          clearInterval(state.timerInterval);
+          state.timerInterval = null;
+        }
+      }
+
+      /* =========================================================================
+         5. DOM HELPERS & SCREEN NAVIGATION
+         ========================================================================= */
+      const $ = (id) => document.getElementById(id);
+
+      function showScreen(screenId) {
+        stopQuestionTimer();
+        document.querySelectorAll('.screen').forEach(sec => sec.classList.remove('active'));
+        const target = $(screenId);
+        if (target) {
+          target.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+
+      function updatePersonalBestUI() {
+        $('top-personal-best').textContent = getPersonalBest().toLocaleString('id-ID');
+      }
+
+      function formatDuration(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+
+      function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      /* =========================================================================
+         6. RENDERING ARENA SELECTION
+         ========================================================================= */
+      function renderArenaSelection() {
+        $('hud-player-name').textContent = state.nickname;
+        $('arena-total-score').textContent = state.totalScore.toLocaleString('id-ID');
+
+        const container = $('arena-cards-container');
+        container.innerHTML = '';
+
+        ARENA_CONFIG.forEach(arena => {
+          const isCompleted = state.completedArenas.includes(arena.id);
+          const isUnlocked = arena.id === state.unlockedArena && !isCompleted;
+          const isLocked = arena.id > state.unlockedArena;
+
+          const card = document.createElement('article');
+          card.className = `arena-card ${arena.isBoss ? 'boss' : ''} ${isCompleted ? 'completed' : isUnlocked ? 'unlocked' : 'locked'}`;
+
+          let chipHTML = '';
+          let actionHTML = '';
+
+          if (isCompleted) {
+            const res = state.arenaResults[arena.id];
+            chipHTML = `<span class="status-chip chip-completed">✓ SELESAI (${res ? res.correct : 5}/5)</span>`;
+            actionHTML = `<button type="button" class="btn btn-secondary" disabled style="width:100%; min-height:44px; padding:10px;">ARENA DITAKLUKKAN</button>`;
+          } else if (isUnlocked) {
+            chipHTML = `<span class="status-chip chip-unlocked">● TERBUKA</span>`;
+            actionHTML = `<button type="button" class="btn ${arena.isBoss ? 'btn-gold' : 'btn-primary'}" data-start-arena="${arena.id}" style="width:100%; min-height:46px; padding:12px;">MASUK ${arena.code} ▶</button>`;
+          } else {
+            chipHTML = `<span class="status-chip chip-locked">🔒 TERKUNCI</span>`;
+            actionHTML = `<button type="button" class="btn btn-secondary" disabled style="width:100%; min-height:44px; padding:10px;">SELESAIKAN ARENA SEBELUMNYA</button>`;
+          }
+
+          card.innerHTML = `
+            <div>
+              <div class="arena-top">
+                <span class="arena-code">${arena.code}</span>
+                ${chipHTML}
+              </div>
+              <h3 class="arena-name">${arena.name}</h3>
+              <p class="arena-topics">${arena.topics}</p>
+            </div>
+            <div>${actionHTML}</div>
+          `;
+
+          container.appendChild(card);
+        });
+
+        container.querySelectorAll('[data-start-arena]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            sound.click();
+            const arenaId = parseInt(btn.getAttribute('data-start-arena'), 10);
+            startArena(arenaId);
+          });
+        });
+
+        showScreen('screen-arenas');
+      }
+
+      /* =========================================================================
+         7. GAMEPLAY ENGINE (TIMER, SCORING, COMBO, SPEED BONUS)
+         ========================================================================= */
+      function startArena(arenaId) {
+        if (arenaId !== state.unlockedArena || state.completedArenas.includes(arenaId)) {
+          return;
+        }
+        state.currentArenaId = arenaId;
+        state.arenaQuestions = prepareShuffledArenaQuestions(arenaId);
+        state.currentQuestionIdx = 0;
+        state.arenaScore = 0;
+        state.arenaCorrect = 0;
+
+        if (arenaId === 1 && state.answerHistory.length === 0) {
+          state.playStartTime = Date.now();
+        }
+
+        showScreen('screen-quiz');
+        renderQuestion();
+      }
+
+      function renderQuestion() {
+        stopQuestionTimer();
+        state.questionAnswered = false;
+        state.timeLeft = QUESTION_TIME_LIMIT;
+
+        const qObj = state.arenaQuestions[state.currentQuestionIdx];
+        const arenaMeta = ARENA_CONFIG.find(a => a.id === state.currentArenaId);
+
+        // Update HUD
+        $('hud-progress').textContent = `A${state.currentArenaId} • ${state.currentQuestionIdx + 1}/5`;
+        $('hud-score').textContent = state.totalScore.toLocaleString('id-ID');
+        $('hud-combo').textContent = `${state.comboStreak}x`;
+        $('q-arena-badge').textContent = `${arenaMeta.code} — ${arenaMeta.name}`;
+        $('q-difficulty-badge').textContent = `TINGKAT: ${qObj.difficulty.toUpperCase()}`;
+
+        const progressPercent = (state.currentQuestionIdx / 5) * 100;
+        $('arena-progress-bar').style.width = `${progressPercent}%`;
+
+        $('question-text').textContent = qObj.question;
+
+        const feedbackPanel = $('feedback-panel');
+        feedbackPanel.className = 'feedback-panel';
+
+        const optionsContainer = $('options-container');
+        optionsContainer.innerHTML = '';
+
+        const letters = ['A', 'B', 'C', 'D'];
+        qObj.options.forEach((optText, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option-btn';
+          btn.innerHTML = `
+            <span class="option-key">${letters[idx]}</span>
+            <span>${escapeHTML(optText)}</span>
+          `;
+          btn.addEventListener('click', () => handleAnswerSelection(idx));
+          optionsContainer.appendChild(btn);
+        });
+
+        updateTimerDisplay();
+        startQuestionTimer();
+      }
+
+      function updateTimerDisplay() {
+        const timerEl = $('hud-timer');
+        const barEl = $('question-timer-bar');
+        timerEl.textContent = `${state.timeLeft}s`;
+
+        const pct = Math.max(0, (state.timeLeft / QUESTION_TIME_LIMIT) * 100);
+        barEl.style.width = `${pct}%`;
+
+        if (state.timeLeft <= 5) {
+          timerEl.className = 'hud-value danger';
+          barEl.style.background = '#EF4444';
+        } else {
+          timerEl.className = 'hud-value gold';
+          barEl.style.background = 'linear-gradient(90deg, var(--gold), var(--neon-cyan))';
+        }
+      }
+
+      function startQuestionTimer() {
+        stopQuestionTimer();
+        state.timerInterval = setInterval(() => {
+          if (state.questionAnswered) {
+            stopQuestionTimer();
+            return;
+          }
+
+          state.timeLeft -= 1;
+          if (state.timeLeft <= 5 && state.timeLeft > 0) {
+            sound.tickWarn();
+          }
+          updateTimerDisplay();
+
+          if (state.timeLeft <= 0) {
+            stopQuestionTimer();
+            handleAnswerSelection(-1); // Timeout treated as incorrect
+          }
+        }, 1000);
+      }
+
+      function handleAnswerSelection(selectedIndex) {
+        if (state.questionAnswered) return; // Prevent double scoring
+        state.questionAnswered = true;
+        stopQuestionTimer();
+
+        const qObj = state.arenaQuestions[state.currentQuestionIdx];
+        const arenaMeta = ARENA_CONFIG.find(a => a.id === state.currentArenaId);
+        const isTimeout = selectedIndex === -1;
+        const isCorrect = !isTimeout && selectedIndex === qObj.correctIndex;
+
+        const optionButtons = $('options-container').querySelectorAll('.option-btn');
+        optionButtons.forEach((btn, idx) => {
+          btn.disabled = true;
+          if (idx === qObj.correctIndex) {
+            btn.classList.add('correct');
+          } else if (idx === selectedIndex && !isCorrect) {
+            btn.classList.add('wrong');
+          }
+        });
+
+        let earnedPoints = 0;
+        let speedBonus = 0;
+        let comboBonus = 0;
+
+        if (isCorrect) {
+          sound.correct();
+          state.comboStreak += 1;
+          if (state.comboStreak > state.maxComboStreak) {
+            state.maxComboStreak = state.comboStreak;
+          }
+          state.totalCorrect += 1;
+          state.arenaCorrect += 1;
+
+          // Base 100 + Combo Bonus (+25 per streak > 1) + Speed Bonus (up to +50)
+          comboBonus = state.comboStreak > 1 ? (state.comboStreak - 1) * 25 : 0;
+          speedBonus = Math.round((state.timeLeft / QUESTION_TIME_LIMIT) * 50);
+          earnedPoints = 100 + comboBonus + speedBonus;
+
+          state.totalSpeedBonus += speedBonus;
+          state.arenaScore += earnedPoints;
+          state.totalScore += earnedPoints;
+        } else {
+          sound.wrong();
+          state.comboStreak = 0;
+          state.totalWrong += 1;
+        }
+
+        // Record history for Review All Answers
+        state.answerHistory.push({
+          arenaName: `${arenaMeta.code} — ${arenaMeta.name}`,
+          question: qObj.question,
+          userAnswer: isTimeout ? 'Waktu Habis (Tidak Menjawab)' : qObj.options[selectedIndex],
+          correctAnswer: qObj.options[qObj.correctIndex],
+          isCorrect: isCorrect,
+          explanation: qObj.explanation,
+          points: earnedPoints
+        });
+
+        // Update HUD & Progress Bar
+        $('hud-score').textContent = state.totalScore.toLocaleString('id-ID');
+        $('hud-combo').textContent = `${state.comboStreak}x`;
+        $('arena-progress-bar').style.width = `${((state.currentQuestionIdx + 1) / 5) * 100}%`;
+
+        // Feedback Panel
+        const feedbackPanel = $('feedback-panel');
+        const statusEl = $('feedback-status');
+        const pointsEl = $('feedback-points');
+
+        if (isCorrect) {
+          feedbackPanel.className = 'feedback-panel show is-correct';
+          statusEl.style.color = '#6EE7B7';
+          statusEl.textContent = '✓ JAWABAN BENAR!';
+          const bonusParts = ['+100 Dasar'];
+          if (comboBonus > 0) bonusParts.push(`+${comboBonus} Combo`);
+          if (speedBonus > 0) bonusParts.push(`+${speedBonus} Speed`);
+          pointsEl.textContent = `+${earnedPoints} POIN (${bonusParts.join(' • ')})`;
+        } else {
+          feedbackPanel.className = 'feedback-panel show is-wrong';
+          statusEl.style.color = '#FCA5A5';
+          statusEl.textContent = isTimeout ? '⌛ WAKTU HABIS! (0 POIN)' : '✕ JAWABAN KURANG TEPAT (0 POIN)';
+          pointsEl.textContent = '+0 POIN';
+        }
+
+        $('feedback-explanation').textContent = qObj.explanation;
+
+        const nextBtn = $('btn-next-question');
+        nextBtn.textContent = state.currentQuestionIdx < 4
+          ? 'PERTANYAAN BERIKUTNYA →'
+          : 'LIHAT HASIL ARENA →';
+      }
+
+      function proceedAfterQuestion() {
+        sound.click();
+        if (state.currentQuestionIdx < 4) {
+          state.currentQuestionIdx += 1;
+          renderQuestion();
+        } else {
+          completeCurrentArena();
+        }
+      }
+
+      /* =========================================================================
+         8. ARENA COMPLETION & FINAL SUMMARY
+         ========================================================================= */
+      function completeCurrentArena() {
+        stopQuestionTimer();
+        sound.arenaClear();
+
+        const arenaId = state.currentArenaId;
+        const arenaMeta = ARENA_CONFIG.find(a => a.id === arenaId);
+
+        if (!state.completedArenas.includes(arenaId)) {
+          state.completedArenas.push(arenaId);
+        }
+
+        state.arenaResults[arenaId] = {
+          correct: state.arenaCorrect,
+          score: state.arenaScore
+        };
+
+        if (arenaId < 4) {
+          state.unlockedArena = arenaId + 1;
+        }
+
+        const accuracy = Math.round((state.arenaCorrect / 5) * 100);
+        $('arena-complete-tag').textContent = `${arenaMeta.code} CLEARED`;
+        $('arena-complete-title').textContent = `${arenaMeta.name} SELESAI!`;
+        $('arena-complete-subtitle').textContent = arenaId < 4
+          ? `Hebat, ${state.nickname}! Arena berikutnya telah terbuka untukmu.`
+          : `Luar biasa, ${state.nickname}! Kamu telah menaklukkan seluruh tantangan Mading Quiz Challenge!`;
+
+        $('ac-correct').textContent = `${state.arenaCorrect}/5`;
+        $('ac-arena-score').textContent = state.arenaScore.toLocaleString('id-ID');
+        $('ac-accuracy').textContent = `${accuracy}%`;
+        $('ac-total-score').textContent = state.totalScore.toLocaleString('id-ID');
+
+        const continueBtn = $('btn-continue-next-arena');
+        continueBtn.textContent = arenaId < 4
+          ? 'LANJUT KE ARENA BERIKUTNYA →'
+          : 'LIHAT HASIL AKHIR PERTANDINGAN ★';
+
+        showScreen('screen-arena-complete');
+      }
+
+      function evaluateRank(accuracy) {
+        if (accuracy >= 90) return 'MASTER OF KNOWLEDGE';
+        if (accuracy >= 75) return 'KNOWLEDGE EXPERT';
+        if (accuracy >= 60) return 'RISING THINKER';
+        return 'KEEP LEARNING';
+      }
+
+      function computeAchievements(accuracy) {
+        return [
+          {
+            icon: '🏛️',
+            title: 'History Guardian',
+            desc: 'Menjawab benar minimal 4 soal di History Arena',
+            unlocked: (state.arenaResults[1]?.correct || 0) >= 4
+          },
+          {
+            icon: '🎖️',
+            title: 'Figure Scholar',
+            desc: 'Menjawab benar minimal 4 soal di Figure Arena',
+            unlocked: (state.arenaResults[2]?.correct || 0) >= 4
+          },
+          {
+            icon: '🔥',
+            title: 'Unstoppable Streak',
+            desc: 'Mencapai minimal 5x Combo Streak berturut-turut',
+            unlocked: state.maxComboStreak >= 5
+          },
+          {
+            icon: '⚡',
+            title: 'Lightning Mind',
+            desc: 'Meraih total Speed Bonus minimal 400 poin',
+            unlocked: state.totalSpeedBonus >= 400
+          },
+          {
+            icon: '👑',
+            title: 'Teacherday Champion',
+            desc: 'Menuntaskan Final Boss dengan akurasi minimal 75%',
+            unlocked: accuracy >= 75
+          }
+        ];
+      }
+
+      function showFinalResults() {
+        const totalQuestions = 20;
+        const accuracy = Math.round((state.totalCorrect / totalQuestions) * 100);
+        const elapsedSeconds = Math.max(1, Math.round((Date.now() - state.playStartTime) / 1000));
+        state.totalPlaySeconds = elapsedSeconds;
+
+        const rankTitle = evaluateRank(accuracy);
+        const isNewBest = savePersonalBest(state.totalScore);
+        updatePersonalBestUI();
+
+        const todayStr = new Date().toLocaleDateString('id-ID', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+
+        saveToLeaderboard({
+          name: state.nickname,
+          score: state.totalScore,
+          accuracy: accuracy,
+          date: todayStr
+        });
+
+        $('final-player-name').textContent = state.nickname;
+        $('final-rank-title').textContent = rankTitle;
+        $('new-record-badge').style.display = isNewBest ? 'block' : 'none';
+        $('final-total-score').textContent = state.totalScore.toLocaleString('id-ID');
+        $('final-correct-wrong').textContent = `${state.totalCorrect} / ${state.totalWrong}`;
+        $('final-accuracy').textContent = `${accuracy}%`;
+        $('final-time').textContent = formatDuration(elapsedSeconds);
+
+        const badgesGrid = $('final-badges-grid');
+        badgesGrid.innerHTML = '';
+        computeAchievements(accuracy).forEach(b => {
+          const item = document.createElement('div');
+          item.className = `badge-item ${b.unlocked ? '' : 'locked'}`;
+          item.innerHTML = `
+            <div class="badge-icon">${b.unlocked ? b.icon : '🔒'}</div>
+            <div class="badge-info">
+              <h4>${b.title}</h4>
+              <p>${b.desc}</p>
+            </div>
+          `;
+          badgesGrid.appendChild(item);
+        });
+
+        showScreen('screen-final');
+      }
+
+      /* =========================================================================
+         9. REVIEW ALL ANSWERS & LOCAL LEADERBOARD
+         ========================================================================= */
+      function renderReviewAnswers() {
+        const container = $('review-container');
+        container.innerHTML = '';
+
+        state.answerHistory.forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = `review-card ${item.isCorrect ? '' : 'wrong'}`;
+          card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; font-size:0.75rem; font-weight:800;">
+              <span style="color:var(--neon-cyan);">SOAL #${idx + 1} • ${escapeHTML(item.arenaName)}</span>
+              <span style="color:${item.isCorrect ? '#6EE7B7' : '#FCA5A5'};">
+                ${item.isCorrect ? `✓ BENAR (+${item.points} POIN)` : '✕ SALAH (0 POIN)'}
+              </span>
+            </div>
+            <div class="review-q">${escapeHTML(item.question)}</div>
+            <div class="review-ans">
+              Jawabanmu: <strong style="color:${item.isCorrect ? '#6EE7B7' : '#FCA5A5'};">${escapeHTML(item.userAnswer)}</strong>
+            </div>
+            <div class="review-ans">
+              Kunci Jawaban: <strong style="color:#6EE7B7;">${escapeHTML(item.correctAnswer)}</strong>
+            </div>
+            <div class="review-exp">
+              <strong>Pembahasan:</strong> ${escapeHTML(item.explanation)}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        showScreen('screen-review');
+      }
+
+      function renderLeaderboard(fromScreenId) {
+        if (fromScreenId && fromScreenId !== 'screen-leaderboard') {
+          state.previousScreenBeforeLeaderboard = fromScreenId;
+        }
+        const tbody = $('leaderboard-tbody');
+        const entries = getLeaderboard();
+        tbody.innerHTML = '';
+
+        if (entries.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align:center; color:var(--muted); padding:22px;">
+                Belum ada catatan skor pada browser ini. Jadilah juara pertama!
+              </td>
+            </tr>
+          `;
+        } else {
+          entries.forEach((row, index) => {
+            const tr = document.createElement('tr');
+            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}`;
+            tr.innerHTML = `
+              <td class="font-display" style="font-weight:800; color:var(--gold);">${medal}</td>
+              <td style="font-weight:700;">${escapeHTML(row.name)}</td>
+              <td class="font-display" style="font-weight:800; color:var(--neon-cyan);">${Number(row.score).toLocaleString('id-ID')}</td>
+              <td>${row.accuracy}%</td>
+              <td style="color:var(--muted);">${escapeHTML(row.date)}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        showScreen('screen-leaderboard');
+      }
+
+      /* =========================================================================
+         10. EVENT LISTENERS
+         ========================================================================= */
+      function bindEvents() {
+        // Sound Toggle
+        $('btn-sound-toggle').addEventListener('click', () => {
+          const isOn = sound.toggle();
+          $('btn-sound-toggle').textContent = isOn ? '🔊 ON' : '🔇 OFF';
+          if (isOn) sound.click();
+        });
+
+        // Brand Mini Home
+        $('nav-home-brand').addEventListener('click', () => {
+          sound.click();
+          stopQuestionTimer();
+          showScreen('screen-home');
+        });
+
+        // Landing Buttons
+        $('btn-start-challenge').addEventListener('click', () => {
+          sound.click();
+          $('nickname-error').textContent = '';
+          showScreen('screen-nickname');
+          setTimeout(() => $('player-nickname-input').focus(), 120);
+        });
+
+        $('btn-how-to-play').addEventListener('click', () => {
+          sound.click();
+          $('modal-howtoplay').classList.add('open');
+        });
+
+        $('btn-close-howtoplay').addEventListener('click', () => {
+          sound.click();
+          $('modal-howtoplay').classList.remove('open');
+        });
+
+        $('modal-howtoplay').addEventListener('click', (e) => {
+          if (e.target === $('modal-howtoplay')) {
+            $('modal-howtoplay').classList.remove('open');
+          }
+        });
+
+        // Nickname Form
+        $('btn-back-to-landing').addEventListener('click', () => {
+          sound.click();
+          showScreen('screen-home');
+        });
+
+        $('nickname-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const rawName = $('player-nickname-input').value.trim();
+          if (rawName.length < 2) {
+            $('nickname-error').textContent = 'Masukkan minimal 2 karakter untuk nama atau nickname pemain.';
+            return;
+          }
+          $('nickname-error').textContent = '';
+          sound.click();
+          resetFullGameState();
+          state.nickname = rawName;
+          renderArenaSelection();
+        });
+
+        // Next Question Button
+        $('btn-next-question').addEventListener('click', proceedAfterQuestion);
+
+        // Continue After Arena Complete
+        $('btn-continue-next-arena').addEventListener('click', () => {
+          sound.click();
+          if (state.currentArenaId < 4) {
+            renderArenaSelection();
+          } else {
+            showFinalResults();
+          }
+        });
+
+        // Final Result Screen Actions
+        $('btn-review-answers').addEventListener('click', () => {
+          sound.click();
+          renderReviewAnswers();
+        });
+
+        $('btn-back-to-final').addEventListener('click', () => {
+          sound.click();
+          showScreen('screen-final');
+        });
+
+        $('btn-play-again').addEventListener('click', () => {
+          sound.click();
+          const savedName = state.nickname;
+          resetFullGameState();
+          state.nickname = savedName;
+          renderArenaSelection();
+        });
+
+        $('btn-final-home').addEventListener('click', () => {
+          sound.click();
+          stopQuestionTimer();
+          showScreen('screen-home');
+        });
+
+        // Leaderboard Navigation
+        $('btn-open-leaderboard').addEventListener('click', () => {
+          sound.click();
+          const activeSec = document.querySelector('.screen.active');
+          const activeId = activeSec ? activeSec.id : 'screen-home';
+          renderLeaderboard(activeId);
+        });
+
+        $('btn-close-leaderboard').addEventListener('click', () => {
+          sound.click();
+          showScreen(state.previousScreenBeforeLeaderboard || 'screen-home');
+        });
+      }
+
+      /* =========================================================================
+         11. SUBTLE FUTURISTIC BACKGROUND PARTICLES
+         ========================================================================= */
+      function initParticles() {
+        const canvas = $('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+
+        const particleCount = Math.min(42, Math.floor(width / 28));
+        const particles = Array.from({ length: particleCount }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.8 + 0.7,
+          vx: (Math.random() - 0.5) * 0.32,
+          vy: (Math.random() - 0.5) * 0.32,
+          alpha: Math.random() * 0.45 + 0.15
+        }));
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        function animate() {
+          ctx.clearRect(0, 0, width, height);
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(85, 200, 255, ${p.alpha})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      }
+
+      // Initialize App
+      updatePersonalBestUI();
+      bindEvents();
+      initParticles();
+    })();
+  </script>
+</body>
+</html>
